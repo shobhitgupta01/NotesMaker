@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by shobhit on 17/6/17.
  */
@@ -146,6 +149,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return correct;
     }
+
+    /**
+     * Method to check if there are notes of the user
+     */
+
+    public boolean ifNotes(String userName){
+        boolean present = false;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM "+TABLE_NOTES;
+
+        Cursor cursor = db.rawQuery(selectQuery,null);
+
+        if(cursor.moveToFirst()){
+            do {
+                if(cursor.getString(0).equals(userName)){
+                    present = true;
+                    break;
+                }
+            }while (cursor.moveToNext());
+        }
+        return present;
+    }
+
+    public List<Notes> getNotes(String userName) {
+
+        List<Notes> notesList = new ArrayList<>();
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT * FROM " + TABLE_NOTES;
+
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                if (cursor.getString(0).equals(userName)) {
+
+                    Notes notes = new Notes(userName, cursor.getString(1), cursor.getString(2));
+                    notesList.add(notes);
+                }
+            } while (cursor.moveToNext());
+        }
+        return notesList;
+    }
+
+
 
 
 }

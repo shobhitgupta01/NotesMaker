@@ -3,4 +3,7 @@
     <string name="register">Register</string>
     <string name="new_note">New Note</string>
     <string name="logout">Logout</string>
+    <string name="title">Title</string>
+    <string name="content">Content</string>
+    <string name="save">Save</string>
 </resources>

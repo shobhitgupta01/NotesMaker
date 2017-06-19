@@ -14,8 +14,16 @@
         android:textSize="36sp"
         tools:layout_editor_absoluteX="118dp"
         tools:layout_editor_absoluteY="48dp"
-        android:layout_marginTop="96dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView3"
+        android:scrollbars="vertical" />
 
 </RelativeLayout>

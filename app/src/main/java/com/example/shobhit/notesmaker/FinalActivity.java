@@ -3,12 +3,18 @@ package com.example.shobhit.notesmaker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FinalActivity extends AppCompatActivity {
 
@@ -17,15 +23,43 @@ public class FinalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_final);
 
-        TextView textView = (TextView)findViewById(R.id.textView3);
-
-
+        //Session Management
         final SessionManagement session = new SessionManagement(getApplicationContext());
 
+        //DatabaseHelper
+        final DatabaseHelper databaseHelper = DatabaseHelper.getDbHelper(getApplicationContext());
+
+        //Text View
+        TextView textView = (TextView)findViewById(R.id.textView3);
+
+        //setting textView
         textView.setText(session.sharedPreferences.getString("uname",null));
 
         //checking Login status
         session.checkLogin();
+
+        //RecyclerView
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+
+        //Notes list for adapter
+        List<Notes> notesList = new ArrayList<>();
+
+
+        //If the user has notes , read them else provide empty notes list
+        if(databaseHelper.ifNotes(session.getUname())) {
+            notesList = databaseHelper.getNotes(session.getUname()); //creating notes List
+        }
+        else {
+            Notes notes = new Notes("","No Notes present","");
+            notesList.add(notes);
+        }
+
+        NotesAdapter notesAdapter = new NotesAdapter(notesList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(notesAdapter);
+        notesAdapter.notifyDataSetChanged();
 
 
 
@@ -43,6 +77,8 @@ public class FinalActivity extends AppCompatActivity {
 
             //adding new note
             case R.id.new_note:
+                Intent i = new Intent(FinalActivity.this,NotesActivity.class);
+                startActivity(i);
                 return true;
 
             case R.id.logout:
