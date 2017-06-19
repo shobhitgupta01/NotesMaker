@@ -85,6 +85,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Creating a new note
+     */
+    public void createNote(Notes notes,String uname)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(KEY_UNAME,uname);
+        contentValues.put(KEY_TITLE,notes.getTitle());
+        contentValues.put(KEY_CONTENT,notes.getContent());
+
+        //inserting row
+        db.insert(TABLE_NOTES,null,contentValues);
+
+        //closing database
+        db.close();
+    }
+
+    /**
      * Checking if user exists
      */
 

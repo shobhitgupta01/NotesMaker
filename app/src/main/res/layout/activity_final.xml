@@ -18,14 +18,4 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/buttonLogout"
-        android:layout_width="88dp"
-        android:layout_height="48dp"
-        android:text="Logout"
-        tools:layout_editor_absoluteX="146dp"
-        tools:layout_editor_absoluteY="229dp"
-        android:layout_marginTop="108dp"
-        android:layout_below="@+id/textView3"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>

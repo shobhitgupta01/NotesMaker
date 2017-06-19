@@ -1,5 +1,6 @@
 package com.example.shobhit.notesmaker;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -99,7 +100,7 @@ public class SessionManagement {
         editor.clear();
         editor.commit();
 
-        // After logout redirect user to Loing Activity
+        // After logout redirect user to Login Activity
         Intent i = new Intent(context, MainActivity.class);
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -109,6 +110,7 @@ public class SessionManagement {
 
         // Starting Login Activity
         context.startActivity(i);
+
     }
 
     /**

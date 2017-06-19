@@ -1,5 +1,8 @@
 package com.example.shobhit.notesmaker;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +18,13 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        //Fragment manager
+        MyFragment fragment = new MyFragment();
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.my_layout,fragment,"Fragment");
+        transaction.commit();
 
         //Edit Text
         final EditText username = (EditText)findViewById(R.id.editText3);
@@ -55,20 +65,28 @@ public class RegisterActivity extends AppCompatActivity {
                         finish();
                     }
                     else{
-                        Toast.makeText(RegisterActivity.this,"Username already exists",Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterActivity.this,"Username already exists",Toast.LENGTH_SHORT).show();
                     }
                 }else if(users.getUname().trim().length()<3){
 
-                    Toast.makeText(RegisterActivity.this,"Username too short(min 3 chars)",Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this,"Username too short(min 3 chars)",Toast.LENGTH_SHORT).show();
                 }
                 else if(users.getPassword().trim().length()<6){
 
-                    Toast.makeText(RegisterActivity.this,"Password too short (min 6 chars)",Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this,"Password too short (min 6 chars)",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(RegisterActivity.this,"Username or password empty",Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this,"Username or password empty",Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
+
+        startActivity(intent);
+        finish();
     }
 }
