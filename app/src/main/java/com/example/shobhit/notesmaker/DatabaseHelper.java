@@ -195,6 +195,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+        public int updateNote(Notes notes , Notes oldNotes,String userName)
+        {
+            SQLiteDatabase db = this.getWritableDatabase();
+
+            ContentValues contentValues = new ContentValues();
+
+            contentValues.put(KEY_UNAME,userName);
+            contentValues.put(KEY_TITLE,notes.getTitle());
+            contentValues.put(KEY_CONTENT,notes.getContent());
+
+            //updating row
+            return db.update(TABLE_NOTES,contentValues,KEY_TITLE+" = ? ",new String[]{oldNotes.getTitle()});
+
+        }
+
+        public void deleteNote(Notes notes)
+        {
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.delete(TABLE_NOTES,KEY_TITLE+" = ? ",new String[]{notes.getTitle()});
+            db.close();
+        }
+
 
 
 }
